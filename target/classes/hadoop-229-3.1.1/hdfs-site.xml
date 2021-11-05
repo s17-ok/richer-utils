@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+
+    <property>
+        <name>dfs.nameservices</name>
+        <value>mycluster</value>
+        <description>服务的逻辑名称</description>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.mycluster</name>
+        <value>nn1,nn2</value>
+        <description>服务中每个NameNode的唯一标识符</description>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.mycluster.nn1</name>
+        <value>10.0.9.231:18136</value>
+        <description>nn1的NameNode监听的标准RPC地址</description>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.mycluster.nn2</name>
+        <value>10.0.9.230:18136</value>
+        <description>nn2的NameNode监听的标准RPC地址</description>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.mycluster.nn1</name>
+        <value>10.0.9.231:18137</value>
+        <description>nn1的NameNode监听的标准HTTP地址</description>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.mycluster.nn2</name>
+        <value>10.0.9.230:18137</value>
+        <description>nn2的NameNode监听的标准HTTP地址</description>
+    </property>
+    <property>
+        <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>dfs.journalnode.http-address</name>
+        <value>0.0.0.0:18139</value>
+    </property>
+    <property>
+        <name>dfs.journalnode.rpc-address</name>
+        <value>0.0.0.0:18138</value>
+    </property>
+    <property>
+        <name>dfs.namenode.shared.edits.dir</name>
+        <value>qjournal://10.0.9.231:18138;10.0.9.230:18138;10.0.9.229:18138/mycluster</value>
+        <description>
+            该配置的机器是journalnode启动的机器。标识NameNode将在其中写入/读取编辑内容的JN组的URI，指定NameNode元数据在JournalNode上的存放位置
+            NFS的方式的HA的配置与启动，和QJM方式基本上是一样，
+            唯一不同的地方就是active namenode和standby namenode共享edits文件的方式
+            QJM方式是采用journalnode来共享edits文件，而NFS方式则是采用NFS远程共享目录来共享edits文件
+        </description>
+    </property>
+
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>
+            sshfence
+            shell(/bin/true)
+        </value>
+        <description>
+            这些列表将用于在故障转移期间隔离Active NameNode
+            配置隔离机制，即同一时刻只能有一台服务器对外响应
+            该sshfence选项SSH到目标节点，然后杀该服务的TCP端口上侦听的过程。
+            为了使该防护选项起作用，它必须能够在不提供密码的情况下SSH到目标节点。
+            因此，还必须配置dfs.ha.fencing.ssh.private-key-files
+        </description>
+    </property>
+
+    <property>
+        <name>dfs.ha.fencing.ssh.private-key-files</name>
+        <value>/commonuser/.ssh/id_rsa</value>
+        <description>使用隔离机制时需要ssh无秘钥登录</description>
+    </property>
+
+    <property>
+        <name>dfs.permissions.enable</name>
+        <value>false</value>
+        <description>关闭权限检查</description>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.mycluster</name>
+        <value>org.apache.hadoop.hadoop.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+        <description>访问代理类失败自动切换实现方式</description>
+    </property>
+
+    <property>
+        <name>dfs.ha.automatic-failover.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+		<description>hdfs文件副本数</description>
+    </property>
+
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:/data/appData/hadoop/namenode</value>
+		<description>namenode数据地址</description>
+    </property>
+
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:/data/appData/hadoop/datanode</value>
+		<description>datanode数据地址</description>
+    </property>
+
+    <property>
+        <name>ipc.client.connect.max.retries</name>
+        <value>100</value>
+        <description>Indicates the number of retries a client will make to establish
+            a server connection.
+        </description>
+    </property>
+
+    <property>
+        <name>ipc.client.connect.retry.interval</name>
+        <value>10000</value>
+        <description>Indicates the number of milliseconds a client will wait for
+            before retrying to establish a server connection.
+        </description>
+    </property>
+
+<!-- General HDFS security config --> 
+  <property> 
+        <name>dfs.block.access.token.enable</name> 
+        <value>true</value> 
+  </property> 
+ 
+  <!--NameNode security config --> 
+  <property> 
+        <name>dfs.encrypt.data.transfer</name> 
+        <value>true</value> 
+  </property> 
+ 
+  <property> 
+        <name>dfs.namenode.keytab.file</name> 
+        <value>/data/appData/kerberos/keytabs/all.keytab</value>
+        <!-- path to the HDFS keytab -->  
+  </property> 
+  <property> 
+        <name>dfs.namenode.kerberos.principal</name> 
+        <value>hadoop/_HOST@CLOUDWISE.COM</value> 
+  </property> 
+  <property> 
+        <name>dfs.namenode.kerberos.https.principal</name> 
+        <value>HTTP/_HOST@CLOUDWISE.COM</value> 
+  </property> 
+  <!-- journalnode secure  -->
+  <property>
+        <name>dfs.journalnode.keytab.file</name>
+        <value>/data/appData/kerberos/keytabs/all.keytab</value>
+  </property>
+  <property>
+        <name>dfs.journalnode.kerberos.principal</name>
+        <value>hadoop/_HOST@CLOUDWISE.COM</value>
+  </property>
+  <property>
+        <name>dfs.journalnode.kerberos.internal.spnego.principal</name>
+        <value>HTTP/_HOST@CLOUDWISE.COM</value>
+  </property>
+  <!--DataNode security config -->  
+  <property> 
+        <name>dfs.datanode.data.dir.perm</name> 
+        <value>700</value> 
+  </property> 
+  <property> 
+        <name>dfs.datanode.address</name> 
+        <value>0.0.0.0:61002</value> 
+  </property>
+  <property> 
+        <name>dfs.datanode.http.address</name> 
+        <value>0.0.0.0:61001</value> 
+  </property>
+  <property>
+      <name>dfs.data.transfer.protection</name>
+      <value>integrity</value>
+  </property>
+  <property> 
+        <name>dfs.datanode.keytab.file</name> 
+        <value>/data/appData/kerberos/keytabs/all.keytab</value>
+        <!-- path to the HDFS keytab --> 
+  </property> 
+  <property> 
+        <name>dfs.datanode.kerberos.principal</name> 
+        <value>hadoop/_HOST@CLOUDWISE.COM</value> 
+  </property> 
+  
+<property>
+        <name>ignore.secure.ports.for.testing</name>
+        <value>true</value>
+    </property>
+<property> 
+        <name>dfs.datanode.kerberos.https.principal</name> 
+        <value>HTTP/_HOST@CLOUDWISE.COM</value> 
+  </property>  
+  <!--web config--> 
+  <property> 
+        <name>dfs.web.authentication.kerberos.principal</name> 
+        <value>HTTP/_HOST@CLOUDWISE.COM</value> 
+  </property> 
+  <property> 
+        <name>dfs.web.authentication.kerberos.keytab</name> 
+        <value>/data/appData/kerberos/keytabs/all.keytab</value> 
+        <description> 
+                 The Kerberos keytab file with the credentials for the   HTTP Kerberos principal used by Hadoop-Auth in the HTTP endpoint. 
+        </description>
+  </property>
+<!--
+       <property> 
+        <name>dfs.http.policy</name>  
+        <value>HTTPS_ONLY</value> 
+        <description>所有开启的web页面均使用https, 细节在ssl server 和client那个配置文 件内配置</description>
+  </property>    
+<property> 
+        <name>dfs.https.port</name> 
+        <value>50470</value> 
+  </property> 
+-->
+
+
+</configuration>

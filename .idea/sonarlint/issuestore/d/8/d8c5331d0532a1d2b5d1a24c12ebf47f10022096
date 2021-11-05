@@ -1,0 +1,19 @@
+
+_
+java:S1128"IRemove this unused import 'org.apache.flink.configuration.ConfigOptions'.(‘Íàå
+k
+java:S1128
+"URemove this unused import 'org.apache.flink.runtime.state.filesystem.FsStateBackend'.(›¦„¼
+Y
+java:S1128">Remove this unused import 'org.apache.flink.util.StringUtils'.(ü¾­Àúÿÿÿÿ
+M
+java:S1128"0Remove this unused import 'java.nio.file.Paths'.(áè°¯8±–ÜïÎ/
+q
+java:S1128	"ORemove this unused import 'org.apache.flink.configuration.GlobalConfiguration'.(œë»Âşÿÿÿÿ8²–ÜïÎ/
+L
+java:S1128"/Remove this unused import 'java.nio.file.Path'.(×²êÂ8²–ÜïÎ/
+W	java:S1252"<This block of commented-out lines of code should be removed.(¤×Íl8–ÕÿïÎ/
+U
+java:S1874:"8Remove this use of "socketTextStream"; it is deprecated.(™Ô¶Û8Í§ÜïÎ/
+]	java:S125;"<This block of commented-out lines of code should be removed.(ü‚À şÿÿÿÿ8Î§ÜïÎ/
+]	java:S125D"<This block of commented-out lines of code should be removed.(¥¾­ßÿÿÿÿÿ8Ğ§ÜïÎ/

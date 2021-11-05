@@ -1,0 +1,13 @@
+
+f
+java:S2095"KUse try-with-resources or close this "KafkaProducer" in a "finally" clause.(¥³õ„øÿÿÿÿ
+E
+java:S3740,"/Provide the parametrized type for this generic.(Ê™ê÷
+k	java:S117)"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßõôßùÿÿÿÿ
+p
+java:S1488"ZImmediately return this expression instead of assigning it to the temporary variable "dt".(¼€Š¤
+K
+java:S1128"/Remove this unused import 'java.sql.Timestamp'.(èò½+8ÈÄ„ùÎ/
+P
+java:S6213,":Rename this variable to not match a restricted identifier.(Ê™ê÷
+S	java:S106-"9Replace this use of System.out or System.err by a logger.(›¨ùñúÿÿÿÿ
